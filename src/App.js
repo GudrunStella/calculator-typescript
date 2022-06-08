@@ -116,6 +116,7 @@ const App = () => {
         break;
 
       case 'sqr':
+        setCalc(calc = result)
         var count = 0;
         var i = 0;
         if (calc === 0) {
@@ -132,9 +133,7 @@ const App = () => {
           setSign(sign = 'sqr(' + calc + ')')
         }
         setTemp(temp = count);
-        setCalc(calc = temp)
-        setResult(result = calc)
-        setSign(sign += '=' + result)
+        setSign(sign += '=' + temp)
 
         setOperate('sqr')
         break;
