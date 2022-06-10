@@ -21,42 +21,54 @@ const App = () => {
     e.preventDefault();
     let value = e.target.id * 0.1;
     setNum(num = num * 10 + value * 10)
+    /*
+    let value = e.target.id;
+    if (num === 0) {
+      setNum(value)
+    } else {
+      setNum(num + value)
+    }*/
 
     //Calculation for +
     if (operate === '+') {
       if (temp === 0) {
-        setTemp(temp = prevNum + num)
+        temp = prevNum + num
       } else {
-        setTemp(temp += num)
+        temp += num;
+
       }
-      setResult(result = calc + num)
+      setTemp(temp)
+      setResult(calc + num)
 
       //Calculation for -
     } else if (operate === '-') {
       if (temp === 0) {
-        setTemp(temp = prevNum - num)
+        temp = prevNum - num
       } else {
-        setTemp(temp -= num)
+        temp -= num
       }
-      setResult(result = calc - num)
+      setTemp(temp)
+      setResult(calc - num)
 
       //Calculation for *
     } else if (operate === '*') {
       if (temp === 0) {
-        setTemp(temp = prevNum * num)
+        temp = prevNum * num
       } else {
-        setTemp(temp *= num)
+        temp *= num
       }
-      setResult(result = calc * num)
+      setTemp(temp)
+      setResult(calc * num)
 
       //Calculation for /
     } else if (operate === '/') {
       if (temp === 0) {
-        setTemp(temp = prevNum / num)
+        temp = prevNum / num
       } else {
-        setTemp(temp /= num)
+        temp /= num
       }
-      setResult(result = calc / num)
+      setTemp(temp)
+      setResult(calc / num)
 
       //Calculation for /
     } else if (operate === '^') {
@@ -80,34 +92,34 @@ const App = () => {
     e.preventDefault();
 
     const value = e.target.id;
-    setPrevNum(prevNum = num)
-    if (temp === 0) setTemp(temp = prevNum)
+    setPrevNum(num)
+    if (temp === 0) setTemp(prevNum)
 
     switch (value) {
       case '+':
-        setCalc(calc = temp);
+        setCalc(temp);
         setOperate('+');
         break;
       case '-':
-        setCalc(calc = temp);
+        setCalc(temp);
         setOperate('-')
         break;
       case '*':
-        setCalc(calc = temp)
+        setCalc(temp)
         setOperate('*')
         break;
       case '/':
-        setCalc(calc = temp)
+        setCalc(temp)
         setOperate('/')
         break;
       case '%':
         if (temp === 0) {
-          setTemp(temp = num / 100)
+          setTemp(num / 100)
         } else {
           setTemp(temp /= 100)
         }
-        setCalc(calc = temp)
-        setResult(result = calc)
+        setCalc(temp)
+        setResult(calc)
         setOperate('%')
         break;
 
