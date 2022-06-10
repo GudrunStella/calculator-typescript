@@ -19,15 +19,14 @@ const App = () => {
 
   const numHandler = (e) => {
     e.preventDefault();
-    let value = e.target.id * 0.1;
-    setNum(num = num * 10 + value * 10)
-    /*
+
     let value = e.target.id;
     if (num === 0) {
-      setNum(value)
+      num = Number(value)
     } else {
-      setNum(num + value)
-    }*/
+      num = Number(num + value)
+    }
+    setNum(num)
 
     //Calculation for +
     if (operate === '+') {
