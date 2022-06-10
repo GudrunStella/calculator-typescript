@@ -1,0 +1,16 @@
+.window-container {
+    size: inherit;
+    display: flex;
+    align-items: center;
+
+
+}
+
+.window {
+    width: 246px;
+    height: 83px;
+    margin: 25px 25px 25px 25px;
+    background-color: #CBF8F2;
+    font-size: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+}

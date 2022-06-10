@@ -15,71 +15,8 @@ body {
   border-radius: 6px;
 }
 
-.window-container {
-  size: inherit;
-  display: flex;
-  align-items: center;
 
 
-}
-
-.window {
-  width: 246px;
-  height: 83px;
-  margin: 25px 25px 25px 25px;
-  background-color: #CBF8F2;
-  font-size: 22px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.buttons-container {
-  margin-right: 25px;
-
-}
-
-button {
-  border-radius: 1px;
-  width: 54px;
-  height: 54px;
-  border-style: none;
-  font-size: 22px;
-}
-
-.buttons-container button {
-  text-align: center;
-  color: #2A225F;
-  float: right;
-  justify-content: space-between;
-  margin: 4px 4px 4px 4px;
-
-
-}
-
-.top-button {
-  background-color: #11F428;
-}
-
-.equal-button {
-  background-color: #ECF023;
-}
-
-.clear-button {
-  background-color: #F07923;
-}
-
-.tag-button {
-  background-color: #72ccef;
-}
-
-.operate-button {
-  background-color: #23A6F0;
-}
-
-
-button:hover {
-  background-color: rgb(177, 240, 245);
-  color: brown;
-}
 
 .App {
   text-align: center;
