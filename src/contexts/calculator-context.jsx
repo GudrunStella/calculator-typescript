@@ -35,8 +35,12 @@ export const CalculatorProvider = ({ children }) => {
     const numHandler = (value) => {
         return (e) => {
             e.preventDefault();
+            if (num === 0) {
+                num = Number(value);
+            } else {
+                num = Number(num * 10 + value)
+            }
 
-            num = Number(num + value)
             setNum(num)
 
             //Calculation for +
@@ -148,7 +152,7 @@ export const CalculatorProvider = ({ children }) => {
 
             }
 
-            if (value !== '=' && value !== 'sqr') setSign(sign += num + value)
+            if (value !== '=' && value !== 'sqr' && value !== 'c') setSign(sign += num + value)
             setCalc(temp)
             setOperate(value)
             setNum('')
