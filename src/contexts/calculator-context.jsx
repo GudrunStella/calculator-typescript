@@ -1,6 +1,25 @@
-import { React, useState } from "react";
+import { createContext, React, useState } from "react";
 
-const Calculator = () => {
+export const CalculatorContext = createContext({
+    sign: '',
+    setSign: () => { },
+    operate: '',
+    setOperate: () => { },
+    num: 0,
+    setNum: () => { },
+    temp: 0,
+    setTemp: () => { },
+    prevNum: 0,
+    setPrevNum: () => { },
+    calc: 0,
+    setCalc: () => { },
+    result: 0,
+    setResult: () => { },
+    numHandler: () => { },
+    operateHandler: () => { },
+});
+
+export const CalculatorProvider = ({ children }) => {
     //operate signs
     let [sign, setSign] = useState('');
     let [operate, setOperate] = useState('');
@@ -136,5 +155,26 @@ const Calculator = () => {
         }
 
     }
-}
-export default Calculator;
+
+
+    const items = {
+        sign,
+        setSign,
+        operate,
+        setOperate,
+        num,
+        setNum,
+        temp,
+        setTemp,
+        prevNum,
+        setPrevNum,
+        calc,
+        setCalc,
+        result,
+        setResult,
+        numHandler,
+        operateHandler,
+    }
+
+    return <CalculatorContext.Provider value={items}>{children}</CalculatorContext.Provider>
+};

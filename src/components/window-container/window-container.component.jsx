@@ -1,11 +1,13 @@
-import { Fragment } from "react";
-import Calculator from "../../calculator/calculator";
+import { useContext } from "react";
+import { CalculatorContext } from "../../contexts/calculator-context";
 import './window-container.styles.css'
 const WindowContainer = () => {
-    <Fragment>
+
+    const { num, sign } = useContext(CalculatorContext);
+    return (
         <div className='window-container'>
-            <textarea className='window' type="number" value={Calculator.num} placeholder={Calculator.sign}></textarea>
+            <textarea className='window' type="number" value={num} placeholder={sign}></textarea>
         </div>
-    </Fragment>
+    );
 }
 export default WindowContainer;

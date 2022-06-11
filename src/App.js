@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import Buttons from './components/buttons-conteiner/buttons-container.component';
 import WindowContainer from './components/window-container/window-container.component';
 import './App.css';
