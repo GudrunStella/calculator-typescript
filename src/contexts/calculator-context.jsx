@@ -7,14 +7,10 @@ export const CalculatorContext = createContext({
     setOperate: () => { },
     num: 0,
     setNum: () => { },
-    temp: 0,
-    setTemp: () => { },
     prevNum: 0,
     setPrevNum: () => { },
     calc: 0,
     setCalc: () => { },
-    result: 0,
-    setResult: () => { },
     numHandler: () => { },
     operateHandler: () => { },
 });
@@ -26,10 +22,8 @@ export const CalculatorProvider = ({ children }) => {
 
     //numbers and calculations
     let [num, setNum] = useState(0);
-    let [temp, setTemp] = useState(0);
     let [prevNum, setPrevNum] = useState(0);
     let [calc, setCalc] = useState(0);
-    let [result, setResult] = useState(0);
 
 
     const numHandler = (value) => {
@@ -40,60 +34,53 @@ export const CalculatorProvider = ({ children }) => {
             } else {
                 num = Number(num * 10 + value)
             }
-
             setNum(num)
 
             //Calculation for +
             if (operate === '+') {
-                if (temp === 0) {
-                    temp = prevNum + num
+                if (calc === 0) {
+                    calc = prevNum + num
                 } else {
-                    temp += num;
+                    calc += num;
                 }
-                setResult(calc + num)
 
                 //Calculation for -
             } else if (operate === '-') {
-                if (temp === 0) {
-                    temp = prevNum - num
+                if (calc === 0) {
+                    calc = prevNum - num
                 } else {
-                    temp -= num
+                    calc -= num
                 }
-                setResult(calc - num)
 
                 //Calculation for *
             } else if (operate === '*') {
-                if (temp === 0) {
-                    temp = prevNum * num
+                if (calc === 0) {
+                    calc = prevNum * num
                 } else {
-                    temp *= num
+                    calc *= num
                 }
-                setResult(calc * num)
 
                 //Calculation for /
             } else if (operate === '/') {
-                if (temp === 0) {
-                    temp = prevNum / num
+                if (calc === 0) {
+                    calc = prevNum / num
                 } else {
-                    temp /= num
+                    calc /= num
                 }
-                setResult(calc / num)
 
                 //Calculation for /
             } else if (operate === '^') {
-                var numPow = 1;
+                //      var numPow = 1;
+                if (calc === 0) calc = 1;
                 for (var i = 0; i < num; i++) {
-                    numPow *= prevNum;
+                    calc *= prevNum;
                 }
-                setCalc(calc = numPow)
-                setResult(result = calc)
-
 
             } else if (operate === '=') {
                 setSign(sign += ' ')
             }
 
-            setTemp(temp)
+            setCalc(calc)
         };
     };
 
@@ -103,22 +90,18 @@ export const CalculatorProvider = ({ children }) => {
         return (e) => {
             e.preventDefault();
             setPrevNum(num)
-            if (temp === 0) setTemp(prevNum)
-
             switch (value) {
 
                 case '%':
 
-                    if (temp === 0) {
-                        setTemp(num / 100)
+                    if (calc === 0) {
+                        setCalc(num / 100)
                     } else {
-                        setTemp(temp /= 100)
+                        setCalc(calc /= 100)
                     }
-                    setResult(calc)
                     break;
 
                 case 'sqr':
-                    setCalc(calc = result)
                     var count = 0;
                     var i = 0;
                     if (calc === 0) {
@@ -134,26 +117,26 @@ export const CalculatorProvider = ({ children }) => {
                         }
                         setSign(sign = 'sqr(' + calc + ')')
                     }
-                    setTemp(temp = count);
-                    setSign(sign += '=' + temp)
+                    calc = count
+                    setCalc(calc);
+                    setSign(sign += '=' + calc)
                     break;
 
                 case 'c':
                     setNum(0)
                     setCalc(0)
-                    setTemp(0)
                     setSign('')
                     setOperate('')
                     setPrevNum(0)
                     break;
 
                 default:
-                    setSign('=' + result)
+                    setSign('=' + calc)
 
             }
 
             if (value !== '=' && value !== 'sqr' && value !== 'c') setSign(sign += num + value)
-            setCalc(temp)
+
             setOperate(value)
             setNum('')
         }
@@ -168,14 +151,10 @@ export const CalculatorProvider = ({ children }) => {
         setOperate,
         num,
         setNum,
-        temp,
-        setTemp,
         prevNum,
         setPrevNum,
         calc,
         setCalc,
-        result,
-        setResult,
         numHandler,
         operateHandler,
     }
