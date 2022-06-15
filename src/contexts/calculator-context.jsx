@@ -31,6 +31,7 @@ export const CalculatorProvider = ({ children }) => {
         return (e) => {
             e.preventDefault();
 
+            var temp = 0;
             if (num === 0) {
                 num = value.toString()
             } else {
@@ -40,15 +41,15 @@ export const CalculatorProvider = ({ children }) => {
             switch (operate) {
                 //Calculation for +
                 case '+':
-                    if (calc === 0) {
+                    if (calc === 0 || num.toString().includes('.')) {
                         calc = parseFloat(prevNum) + parseFloat(num)
                     } else {
-                        calc += parseFloat(num);
+                        calc += parseFloat(num)
                     }
                     break;
                 //Calculation for -
                 case '-':
-                    if (calc === 0) {
+                    if (calc === 0 || num.toString().includes('.')) {
                         calc = parseFloat(prevNum) - parseFloat(num)
                     } else {
                         calc -= parseFloat(num)
@@ -64,7 +65,7 @@ export const CalculatorProvider = ({ children }) => {
                     break;
                 //Calculation for /
                 case '/':
-                    if (calc === 0) {
+                    if (calc === 0 || num.toString().includes('.')) {
                         calc = parseFloat(prevNum) / parseFloat(num)
                     } else {
                         calc /= parseFloat(num)
@@ -134,7 +135,6 @@ export const CalculatorProvider = ({ children }) => {
                     sign += num + value
 
             }
-
             if (value !== 'c') {
                 setPrevNum(num)
                 setSign(sign)
