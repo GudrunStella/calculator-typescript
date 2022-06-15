@@ -30,11 +30,11 @@ export const CalculatorProvider = ({ children }) => {
     const numHandler = (value) => {
         return (e) => {
             e.preventDefault();
+
             if (num === 0) {
-                num = value
+                num = value.toString()
             } else {
-                //if (value === '.') calc -= num
-                num = num + value
+                num = num + value.toString()
             }
 
             switch (operate) {
