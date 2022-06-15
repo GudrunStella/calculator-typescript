@@ -4,7 +4,6 @@ import './buttons-container.styles.css'
 const Buttons = ({ num, sign }) => {
     //const {operate, numhandling} = calculate;
     const { numHandler } = useContext(CalculatorContext);
-
     const { operateHandler } = useContext(CalculatorContext);
     return (
         <div className='buttons-container'>
@@ -26,7 +25,7 @@ const Buttons = ({ num, sign }) => {
             <button className='tag-button' onClick={numHandler(1)}>1</button>
             <button className='equal-button' onClick={operateHandler('=')}>=</button>
             <button className='operate-button' onClick={operateHandler('+')}>+</button>
-            <button className='tag-button' >.</button>
+            <button className='tag-button' onClick={numHandler('.')}>.</button>
             <button className='tag-button' onClick={numHandler(0)}>0</button>
         </div>
     )
