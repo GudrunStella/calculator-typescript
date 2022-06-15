@@ -78,7 +78,6 @@ export const CalculatorProvider = ({ children }) => {
                     }
                     break;
                 default:
-                //sign += ' '
             }
             setNum(num)
             setSign(sign)
@@ -98,6 +97,7 @@ export const CalculatorProvider = ({ children }) => {
                     } else {
                         calc /= 100
                     }
+                    sign += calc
                     break;
 
                 case 'sqr':
