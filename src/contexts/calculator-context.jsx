@@ -38,9 +38,7 @@ export const CalculatorProvider = ({ children }) => {
                         calc = parseFloat(prevNum) + parseFloat(num)
 
                     } else if (num.toString().includes('.')) {
-                        if (calc === 0) floatNum = parseFloat(prevNum) + parseFloat(num)
-
-                        if (calc >= 0) floatNum += parseFloat(prevNum)
+                        floatNum = parseFloat(prevNum) + parseFloat(num)
 
                     } else {
                         calc += parseFloat(num)
