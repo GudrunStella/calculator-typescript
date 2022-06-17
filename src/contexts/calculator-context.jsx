@@ -48,16 +48,13 @@ export const CalculatorProvider = ({ children }) => {
                     break;
                 //Calculation for -
                 case '-':
-                    if (prevNum < 0 && num.toString().includes('.')) {
-                        prevNum = parseFloat(prevNum) * -1
+                    if (calc === 0) {
                         calc = parseFloat(prevNum) - parseFloat(num)
                     } else if (num.toString().includes('.')) {
-                        floatNum -= parseFloat(prevNum)
-                    }
-                    else {
+                        floatNum = -parseFloat(prevNum) - parseFloat(num)
+                    } else {
                         calc -= parseFloat(num)
                     }
-
                     break;
                 //Calculation for *
                 case '*':
