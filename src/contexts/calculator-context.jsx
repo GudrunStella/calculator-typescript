@@ -4,14 +4,8 @@ import { createContext, React, useState } from "react";
 export const CalculatorContext = createContext({
     sign: '',
     setSign: () => { },
-    operate: '',
-    setOperate: () => { },
     num: 0,
     setNum: () => { },
-    prevNum: 0,
-    setPrevNum: () => { },
-    calc: 0,
-    setCalc: () => { },
     numHandler: () => { },
     operateHandler: () => { },
 });
@@ -26,12 +20,11 @@ export const CalculatorProvider = ({ children }) => {
     var [num, setNum] = useState(0);
     var [prevNum, setPrevNum] = useState(0);
     var [calc, setCalc] = useState(0);
+    var [floatNum, setFloatNum] = useState(0.0);
 
     const numHandler = (value) => {
         return (e) => {
             e.preventDefault();
-
-            var temp = 0;
             if (num === 0) {
                 num = value.toString()
             } else {
@@ -41,19 +34,30 @@ export const CalculatorProvider = ({ children }) => {
             switch (operate) {
                 //Calculation for +
                 case '+':
-                    if (calc === 0 || num.toString().includes('.')) {
+                    if (calc === 0) {
                         calc = parseFloat(prevNum) + parseFloat(num)
+
+                    } else if (num.toString().includes('.')) {
+                        if (calc === 0) floatNum = parseFloat(prevNum) + parseFloat(num)
+
+                        if (calc >= 0) floatNum += parseFloat(prevNum)
+
                     } else {
                         calc += parseFloat(num)
                     }
                     break;
                 //Calculation for -
                 case '-':
-                    if (calc === 0 || num.toString().includes('.')) {
+                    if (prevNum < 0 && num.toString().includes('.')) {
+                        prevNum = parseFloat(prevNum) * -1
                         calc = parseFloat(prevNum) - parseFloat(num)
-                    } else {
+                    } else if (num.toString().includes('.')) {
+                        floatNum -= parseFloat(prevNum)
+                    }
+                    else {
                         calc -= parseFloat(num)
                     }
+
                     break;
                 //Calculation for *
                 case '*':
@@ -79,10 +83,14 @@ export const CalculatorProvider = ({ children }) => {
                     }
                     break;
                 default:
+
+            }
+            if (num.toString().includes('.')) {
+                calc = floatNum
             }
             setNum(num)
-            setSign(sign)
             setCalc(calc)
+            setFloatNum(floatNum)
         };
     };
 
@@ -102,25 +110,17 @@ export const CalculatorProvider = ({ children }) => {
                     break;
 
                 case 'sqr':
-                    var count = 0;
+                    var squareRoot = 0;
                     if (calc === 0) {
-                        for (var i = 1; i < num / 2; i++) {
-                            count += 1;
-                            if (i * i === num) break;
-                        }
                         sign = 'sqr(' + num + ')'
-
+                        squareRoot = Math.sqrt(parseFloat(num))
                     } else {
-                        for (i = 1; i < calc / 2; i++) {
-                            count += 1;
-                            if (i * i === calc) break;
-                        }
                         sign = 'sqr(' + calc + ')'
+                        squareRoot = Math.sqrt(parseFloat(calc))
                     }
-                    calc = count
+                    calc = squareRoot;
                     sign += '=' + calc
                     break;
-
                 case 'c':
                     setNum(0)
                     setCalc(0)
@@ -132,11 +132,14 @@ export const CalculatorProvider = ({ children }) => {
                     sign = value + calc
                     break;
                 default:
-                    sign += num + value
-
+                    if (num === 0 && sign === '') {
+                        sign += value
+                    } else {
+                        sign += num + value;
+                    }
             }
             if (value !== 'c') {
-                setPrevNum(num)
+                setPrevNum(parseFloat(num))
                 setSign(sign)
                 setOperate(value)
                 setCalc(calc)
@@ -149,14 +152,8 @@ export const CalculatorProvider = ({ children }) => {
     const items = {
         sign,
         setSign,
-        operate,
-        setOperate,
         num,
         setNum,
-        prevNum,
-        setPrevNum,
-        calc,
-        setCalc,
         numHandler,
         operateHandler,
     }
