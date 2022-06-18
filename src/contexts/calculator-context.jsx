@@ -1,6 +1,5 @@
 import { createContext, React, useState } from "react";
 
-
 export const CalculatorContext = createContext({
     sign: '',
     setSign: () => { },
@@ -9,6 +8,8 @@ export const CalculatorContext = createContext({
     numHandler: () => { },
     operateHandler: () => { },
     calculate: () => { },
+    floatNum: 0,
+    setFloatNum: () => { },
 });
 
 
@@ -18,17 +19,26 @@ export const CalculatorProvider = ({ children }) => {
     var [operate, setOperate] = useState('');
 
     //numbers and calculations
-    var [num, setNum] = useState(0.0);
+    var [num, setNum] = useState(0);
     var [prevNum, setPrevNum] = useState(0.0);
-    var [calc, setCalc] = useState(0.0);
+    var [calc, setCalc] = useState(0);
+
 
     const numHandler = (value) => {
+
         return (e) => {
+
             e.preventDefault();
+
             if (num === 0) {
                 num = value.toString()
             } else {
                 num = num + value.toString()
+            }
+
+            if (calc === 0 || num.toString().includes('.')) {
+                calc = parseFloat(num)
+                setNum(calc)
             }
 
             switch (operate) {
@@ -56,24 +66,25 @@ export const CalculatorProvider = ({ children }) => {
                     }
                     break;
                 default:
-            }
 
-            setCalc(calc)
+            }
             setNum(num)
+            setCalc(calc)
         };
     };
 
 
     const operateHandler = (value) => {
+
         return (e) => {
+
             e.preventDefault();
-            if (calc === 0) calc = parseFloat(num)
+
             switch (value) {
                 case '%':
                     calc = parseFloat(num / 100)
                     sign += calc
                     break;
-
                 case 'sqr':
                     sign = 'sqr(' + calc + ')'
                     calc = Math.sqrt(parseFloat(calc))
@@ -100,14 +111,10 @@ export const CalculatorProvider = ({ children }) => {
                 setPrevNum(num)
                 setSign(sign)
                 setOperate(value)
-                setCalc(calc)
                 setNum('')
             }
         }
     }
-
-
-
 
     const items = {
         sign,
@@ -117,6 +124,5 @@ export const CalculatorProvider = ({ children }) => {
         numHandler,
         operateHandler,
     }
-
     return <CalculatorContext.Provider value={items}>{children}</CalculatorContext.Provider>
 };
