@@ -8,6 +8,7 @@ export const CalculatorContext = createContext({
     setNum: () => { },
     numHandler: () => { },
     operateHandler: () => { },
+    calculate: () => { },
 });
 
 
@@ -17,10 +18,9 @@ export const CalculatorProvider = ({ children }) => {
     var [operate, setOperate] = useState('');
 
     //numbers and calculations
-    var [num, setNum] = useState(0);
-    var [prevNum, setPrevNum] = useState(0);
-    var [calc, setCalc] = useState(0);
-    var [floatNum, setFloatNum] = useState(0.0);
+    var [num, setNum] = useState(0.0);
+    var [prevNum, setPrevNum] = useState(0.0);
+    var [calc, setCalc] = useState(0.0);
 
     const numHandler = (value) => {
         return (e) => {
@@ -34,58 +34,32 @@ export const CalculatorProvider = ({ children }) => {
             switch (operate) {
                 //Calculation for +
                 case '+':
-                    if (calc === 0) {
-                        calc = parseFloat(prevNum) + parseFloat(num)
-
-                    } else if (num.toString().includes('.')) {
-                        floatNum = parseFloat(prevNum) + parseFloat(num)
-
-                    } else {
-                        calc += parseFloat(num)
-                    }
+                    calc += parseFloat(num)
                     break;
                 //Calculation for -
                 case '-':
-                    if (calc === 0) {
-                        calc = parseFloat(prevNum) - parseFloat(num)
-                    } else if (num.toString().includes('.')) {
-                        floatNum = -parseFloat(prevNum) - parseFloat(num)
-                    } else {
-                        calc -= parseFloat(num)
-                    }
+                    calc -= parseFloat(num)
                     break;
                 //Calculation for *
                 case '*':
-                    if (calc === 0) {
-                        calc = parseFloat(prevNum) * parseFloat(num)
-                    } else {
-                        calc *= parseFloat(num)
-                    }
+                    calc *= parseFloat(num)
                     break;
                 //Calculation for /
                 case '/':
-                    if (calc === 0 || num.toString().includes('.')) {
-                        calc = parseFloat(prevNum) / parseFloat(num)
-                    } else {
-                        calc /= parseFloat(num)
-                    }
+                    calc /= parseFloat(num)
                     break;
                 //Calculation for /
                 case '^':
-                    if (calc === 0) calc = 1;
+                    calc = 1
                     for (var i = 0; i < num; i++) {
-                        calc *= prevNum;
+                        calc *= prevNum
                     }
                     break;
                 default:
+            }
 
-            }
-            if (num.toString().includes('.')) {
-                calc = floatNum
-            }
-            setNum(num)
             setCalc(calc)
-            setFloatNum(floatNum)
+            setNum(num)
         };
     };
 
@@ -93,27 +67,16 @@ export const CalculatorProvider = ({ children }) => {
     const operateHandler = (value) => {
         return (e) => {
             e.preventDefault();
-
+            if (calc === 0) calc = parseFloat(num)
             switch (value) {
                 case '%':
-                    if (calc === 0) {
-                        calc = num / 100
-                    } else {
-                        calc /= 100
-                    }
+                    calc = parseFloat(num / 100)
                     sign += calc
                     break;
 
                 case 'sqr':
-                    var squareRoot = 0;
-                    if (calc === 0) {
-                        sign = 'sqr(' + num + ')'
-                        squareRoot = Math.sqrt(parseFloat(num))
-                    } else {
-                        sign = 'sqr(' + calc + ')'
-                        squareRoot = Math.sqrt(parseFloat(calc))
-                    }
-                    calc = squareRoot;
+                    sign = 'sqr(' + calc + ')'
+                    calc = Math.sqrt(parseFloat(calc))
                     sign += '=' + calc
                     break;
                 case 'c':
@@ -134,7 +97,7 @@ export const CalculatorProvider = ({ children }) => {
                     }
             }
             if (value !== 'c') {
-                setPrevNum(parseFloat(num))
+                setPrevNum(num)
                 setSign(sign)
                 setOperate(value)
                 setCalc(calc)
@@ -142,6 +105,8 @@ export const CalculatorProvider = ({ children }) => {
             }
         }
     }
+
+
 
 
     const items = {
