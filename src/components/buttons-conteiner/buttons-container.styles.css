@@ -1,14 +1,14 @@
 .buttons-container {
-    margin-right: 25px;
+    margin-right: 33px;
 
 }
 
 button {
     border-radius: 1px;
-    width: 54px;
-    height: 54px;
+    width: 82px;
+    height: 82px;
     border-style: none;
-    font-size: 22px;
+    font-size: 32px;
 }
 
 .buttons-container button {
