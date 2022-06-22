@@ -15,6 +15,8 @@ export const CalculatorProvider = ({ children }) => {
     //operate signs
     var [sign, setSign] = useState('');
     var [operate, setOperate] = useState('');
+    var [stringOp, setStringOp] = useState('');
+    var [switchOp, setSwitchOp] = useState(false);
 
     //numbers and calculations
     var [num, setNum] = useState(0);
@@ -34,6 +36,7 @@ export const CalculatorProvider = ({ children }) => {
             } else {
                 num = num + value.toString()
             }
+
             setNum(num)
             calculate()
         };
@@ -45,7 +48,6 @@ export const CalculatorProvider = ({ children }) => {
         return (e) => {
 
             e.preventDefault();
-
 
             if (prevNum === 0) {
                 prevNum = num
@@ -81,6 +83,8 @@ export const CalculatorProvider = ({ children }) => {
                     setPrevNum(0)
                     setSign('')
                     setOperate('')
+                    setStringOp('')
+                    setSwitchOp(false)
                     break;
                 case '=':
                     sign = value + calc
@@ -92,13 +96,29 @@ export const CalculatorProvider = ({ children }) => {
                         sign += num + value;
                     }
             }
+            stringOp += value;
+
+
+            for (var i = 0; i < stringOp.length; i++) {
+                if ((stringOp[i] === '*' && stringOp[i - 1] === '+') ||
+                    (stringOp[i] === '+' && stringOp[i - 1] === '*') ||
+                    (stringOp[i] === '-' && stringOp[i - 1] === '*') ||
+                    (stringOp[i] === '*' && stringOp[i - 1] === '-') ||
+                    (stringOp[i] === '/' && stringOp[i - 1] === '+') ||
+                    (stringOp[i] === '+' && stringOp[i - 1] === '/') ||
+                    (stringOp[i] === '-' && stringOp[i - 1] === '/') ||
+                    (stringOp[i] === '/' && stringOp[i - 1] === '-'))
+                    switchOp = true;
+            }
+
             if (value !== 'c') {
                 setPrevNum(prevNum)
                 setSign(sign)
                 setOperate(value)
                 setNum('')
                 setCalc(calc)
-
+                setStringOp(stringOp)
+                setSwitchOp(switchOp)
             }
         }
     }
@@ -117,13 +137,12 @@ export const CalculatorProvider = ({ children }) => {
             //Calculation for *
             case '*':
                 calc = parseFloat(prevNum) * parseFloat(num)
-                //if (operateHandler.value === '+' || '-') calc += parseFloat(temp)
-                //if (operateHandler.value === '*') calc += 0
+                if (switchOp) calc += parseFloat(temp)
                 break;
             //Calculation for /
             case '/':
                 calc = parseFloat(prevNum) / parseFloat(num)
-                if (operateHandler.value === '+' || '-') calc += parseFloat(temp)
+                if (switchOp) calc += parseFloat(temp)
                 break;
             //Calculation for /
             case '^':
@@ -134,6 +153,7 @@ export const CalculatorProvider = ({ children }) => {
                 break;
             default:
         }
+
         setTemp(prevNum)
         setCalc(calc)
     }
