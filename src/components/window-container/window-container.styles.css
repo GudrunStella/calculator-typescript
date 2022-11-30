@@ -7,10 +7,10 @@
 }
 
 .window {
-    width: 353px;
-    height: 119px;
-    margin: 35px 25px 25px 35px;
-    background-color: #CBF8F2;
+    width: 335px;
+    height: 80px;
+    margin: 34px 34px 20px 34px;
+    background-color: #CCEDAC;
     font-size: 32px;
     font-family: Arial, Helvetica, sans-serif;
 }

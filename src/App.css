@@ -2,18 +2,18 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: center;
-  background-color: #1593A5;
+  background-color: #AF85C3;
 
 }
 
 .calculator-container {
-  margin-top: 50px;
-  width: 428px;
-  height: 701px;
-  background-color: #2A225F;
+  margin-top: 20px;
+  width: 410px;
+  height: 520px;
+  background-color: #101010;
   display: block;
   align-items: center;
-  border-radius: 6px;
+  border-radius: 30px;
 }
 
 

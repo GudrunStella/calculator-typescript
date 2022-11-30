@@ -1,0 +1,34 @@
+.buttons-container {
+    margin-right: 34px;
+    margin-top: 10px;
+
+}
+
+button {
+    border-radius: 50px;
+    width: 75px;
+    height: 55px;
+    border-style: none;
+    font-size: 32px;
+    background-color: #DAE9F4;
+}
+
+.buttons-container button {
+    text-align: center;
+    color: #2A225F;
+    float: right;
+    justify-content: space-between;
+    margin: 5px 5px 5px 5px;
+
+
+}
+
+.operate-button {
+    background-color: #72ccef;
+}
+
+
+button:hover {
+    background-color: rgb(177, 240, 245);
+    color: brown;
+}
